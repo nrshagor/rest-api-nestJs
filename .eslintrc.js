@@ -5,6 +5,13 @@ module.exports = {
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
+  'prettier/prettier': [
+    'error',
+    {
+      singleQuote: true,
+      parser: 'flow',
+    },
+  ],
   plugins: ['@typescript-eslint/eslint-plugin'],
   extends: [
     'plugin:@typescript-eslint/recommended',
