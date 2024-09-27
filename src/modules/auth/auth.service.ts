@@ -18,6 +18,7 @@ export class AuthService {
     const user = this.userRepository.create({
       ...createUserDto,
       password: hashedPassword,
+      role: createUserDto.role || 'user',
     });
     await this.userRepository.save(user);
     return user;
@@ -30,7 +31,7 @@ export class AuthService {
     if (!user || !(await bcrypt.compare(loginDto.password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    const payload = { sub: user.id };
+    const payload = { sub: user.id, role: user.role };
     const accessToken = this.jwtService.sign(payload);
     const refreshToken = this.jwtService.sign(payload, { expiresIn: '7d' });
 
