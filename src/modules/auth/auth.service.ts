@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { User } from '../user/entity/user.entity';
 import * as bcrypt from 'bcryptjs';
 import { CreateUserDto, LoginDto } from '../user/dto/user.dto';
+import { seedData } from '../user/userData';
 
 @Injectable()
 export class AuthService {
@@ -46,6 +47,22 @@ export class AuthService {
       return { accessToken };
     } catch (e) {
       throw new UnauthorizedException('Invalid refresh token');
+    }
+  }
+
+  async seedDataIfNotExists() {
+    const user = await this.userRepository.find();
+    if (user.length === 0) {
+      for (const seed of seedData) {
+        const hashedPassword = await bcrypt.hash(seed.password, 10);
+        const user = this.userRepository.create({
+          name: seed.name,
+          email: seed.email,
+          password: hashedPassword,
+          role: seed?.role,
+        });
+        await this.userRepository.save(user);
+      }
     }
   }
 }

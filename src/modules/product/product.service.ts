@@ -4,6 +4,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { seedData } from './productData';
 
 @Injectable()
 export class ProductService {
@@ -39,5 +40,19 @@ export class ProductService {
   async remove(id: number) {
     const product = await this.findOne(id);
     return this.productRepository.remove(product);
+  }
+
+  async seedDataIfNotExists() {
+    const product = await this.productRepository.find();
+    if (product.length === 0) {
+      for (const seed of seedData) {
+        const product = this.productRepository.create({
+          name: seed.name,
+          price: seed.price,
+          stock: seed.stock,
+        });
+        await this.productRepository.save(product);
+      }
+    }
   }
 }
