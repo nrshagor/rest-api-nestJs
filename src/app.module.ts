@@ -6,9 +6,20 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
 import { ProductModule } from './modules/product/product.module';
 import { OrderModule } from './modules/order/order.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), DbModule, AuthModule, ProductModule, OrderModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    CacheModule.register({
+      ttl: 10, // seconds (time to live), how long to keep cache
+      max: 100, // maximum number of items in cache
+    }),
+    DbModule,
+    AuthModule,
+    ProductModule,
+    OrderModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -7,16 +7,18 @@ import {
   Param,
   Delete,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller('products')
 export class ProductController {
   constructor(private productService: ProductService) {}
-
+  @UseInterceptors(CacheInterceptor)
   @Get()
   findAll() {
     return this.productService.findAll();

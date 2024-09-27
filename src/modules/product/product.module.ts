@@ -3,10 +3,10 @@ import { ProductService } from './product.service';
 import { ProductController } from './product.controller';
 import { Product } from './entities/product.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DbModule } from 'src/db/db.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Product])],
+  imports: [TypeOrmModule.forFeature([Product]), CacheModule.register()], // Import the CacheModule],
 
   controllers: [ProductController],
   providers: [ProductService],
