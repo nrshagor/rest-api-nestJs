@@ -79,6 +79,20 @@ To run this project, you will need to add the following environment variables to
 | `email`    | `string` |
 | `password` | `string` |
 
+- Admin
+
+  ```bash
+  email: 'personone@gmail.com',
+  password: '12345678',
+  ```
+
+- user
+
+  ```bash
+  email: 'persontwo@gmail.com',
+  password: '12345678',
+  ```
+
 - Token Refresh
 
 ```http
