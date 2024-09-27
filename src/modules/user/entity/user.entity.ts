@@ -1,9 +1,11 @@
+import { Order } from 'src/modules/order/entities/order.entity';
 import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('users')
@@ -25,4 +27,7 @@ export class User {
 
   @UpdateDateColumn({ type: 'timestamp' })
   updated_at: Date;
+  // Relationship with Order
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 }
