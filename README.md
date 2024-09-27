@@ -1,85 +1,193 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+## REST API : User, Product, and Order Management System
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+### Project Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This is a REST API built using NestJS to manage users, products, and orders. It supports user authentication with JWT, product management for Admin ,Users and allows users to place and view their order history. The project uses PostgreSQL for the database, and features caching for product listings to improve performance.
 
-## Description
+### 1. Installation and Setup
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+#### Prerequisites:
 
-## Project setup
+- Node.js (v20 or above)
+- PostgreSQL database
+
+#### Clone the repository:
 
 ```bash
-$ npm install
+git clone https://github.com/nrshagor/rest-api-nestJs.git
+
 ```
 
-## Compile and run the project
+#### Go to the project directory
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+  cd rest-api-nestJs
 ```
 
-## Run tests
+#### Install the dependencies:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
 
-## Resources
+#### Start the server
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+  npm run start:dev
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### 2. Environment Variables
 
-## Support
+To run this project, you will need to add the following environment variables to your .env file
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+`DB_HOST=localhost`
 
-## Stay in touch
+`DB_PORT=3306`
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+`DB_USERNAME=root`
 
-## License
+`DB_PASSWORD=your_db_password`
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+`DB_NAME=your_db_name`
+
+`JWT_SECRET=your_jwt_secret`
+
+### 3. API Reference
+
+#### - User Management
+
+- Register a User
+
+```http
+  POST /auth/register
+```
+
+| Parameter  | Type     |
+| :--------- | :------- |
+| `name`     | `string` |
+| `email`    | `string` |
+| `password` | `string` |
+
+- Login a User
+
+```http
+  POST /auth/register
+```
+
+| Parameter  | Type     |
+| :--------- | :------- |
+| `email`    | `string` |
+| `password` | `string` |
+
+- Token Refresh
+
+```http
+  POST /auth/refresh-toekn
+```
+
+| Parameter      | Type     | Request Header                    |
+| :------------- | :------- | :-------------------------------- |
+| `refreshToken` | `string` | `Authorization: Bearer JWT_TOKEN` |
+
+#### - Product Management
+
+- List All Products (Public)
+
+```http
+ GET /products
+```
+
+- Create a Product (Admin Only)
+
+```http
+POST /products
+```
+
+Request Header: Authorization: Bearer JWT_TOKEN (Admin Token)
+
+```bash
+{
+  "name": "Product A",
+  "price": 100,
+  "stock": 20
+}
+
+```
+
+- Update a Product (Admin Only)
+
+```http
+PATCH /products/:id
+```
+
+Request Header: Authorization: Bearer JWT_TOKEN (Admin Token)
+
+```bash
+{
+  "name": "Product A",
+  "price": 100,
+  "stock": 20
+}
+
+```
+
+#### - Order Management
+
+- Place an Order
+
+```http
+POST /order
+```
+
+Request Header: Authorization: Bearer JWT_TOKEN
+
+```bash
+{
+  "order_items": [
+    {
+      "product_id": 1,
+      "quantity": 2
+    }
+  ]
+}
+```
+
+- View Order History
+
+```http
+GET /order
+```
+
+Request Header: Authorization: Bearer JWT_TOKEN
+
+```bash
+[
+  {
+    "id": 1,
+    "total_amount": 200,
+    "created_at": "2024-09-27T12:00:00Z",
+    "order_items": [
+      {
+        "product_id": 1,
+        "quantity": 2,
+        "price": 100
+      }
+    ]
+  }
+]
+
+```
+
+### 4. Bonus Points: Caching
+
+For improved performance, product listings are cached for 60 seconds. The caching mechanism is implemented using NestJS's CacheInterceptor.
+
+#### Example of Cached Endpoint:
+
+- `Endpoint: GET /products`
+
+- `Cached for 60 seconds.`
+
+## Authors
+
+- [@nrshagor](https://github.com/nrshagor)
